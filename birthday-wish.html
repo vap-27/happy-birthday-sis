@@ -1,0 +1,1556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday, Mansi</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:      #f7f4f0;
+  --ink:     #1c1917;
+  --muted:   #8a8480;
+  --accent:  #c8956c;
+  --accent2: #9b7b5e;
+  --gold:    #d4a96a;
+  --line:    rgba(28,25,23,0.1);
+  --white:   #ffffff;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── PAGE LOAD REVEAL ── */
+.page-reveal {
+  position: fixed; inset: 0;
+  background: var(--ink);
+  z-index: 1000;
+  transform-origin: top;
+  animation: revealOut 1.1s cubic-bezier(0.76,0,0.24,1) 0.3s both;
+}
+@keyframes revealOut { from { transform: scaleY(1); } to { transform: scaleY(0); } }
+
+/* ── GLOBAL SPARKLE CANVAS ── */
+#sparkle-canvas {
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 50;
+}
+
+/* ── FADE-IN UTILITY ── */
+.fade { opacity: 0; transform: translateY(22px); transition: opacity 0.85s cubic-bezier(0.22,1,0.36,1), transform 0.85s cubic-bezier(0.22,1,0.36,1); }
+.fade.visible { opacity: 1; transform: translateY(0); }
+
+/* ── NAV WITH GLASSY BLUR EFFECT ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  padding: 18px 48px;
+  display: flex; align-items: center; justify-content: space-between;
+  z-index: 100;
+  background: rgba(247, 244, 240, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(28, 25, 23, 0.05);
+}
+.nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 18px; letter-spacing: 0.12em; color: var(--ink); font-weight: 400; }
+.nav-date  { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+
+/* ── HERO & SUBTLE LIVE PARTICLES ── */
+.hero {
+  min-height: 100svh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-live-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+.hero-p {
+  position: absolute;
+  color: var(--accent);
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  opacity: 0;
+  animation: heroFloat 7s ease-in-out infinite;
+}
+@keyframes heroFloat {
+  0% { transform: translateY(40px) rotate(0deg); opacity: 0; }
+  30% { opacity: 0.25; }
+  70% { opacity: 0.25; }
+  100% { transform: translateY(-80px) rotate(15deg); opacity: 0; }
+}
+
+.hero-left {
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 120px 60px 80px 60px;
+  position: relative; z-index: 2;
+  border-right: 1px solid var(--line);
+}
+
+.hero-eyebrow {
+  font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 28px;
+  animation: fadeUp 0.9s ease 1.2s both;
+}
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(64px, 8vw, 108px); font-weight: 300;
+  line-height: 0.95; letter-spacing: -0.02em; margin-bottom: 20px;
+  animation: fadeUp 0.9s ease 1.35s both;
+}
+.hero-title em { font-style: italic; color: var(--accent); }
+.hero-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(52px, 6.5vw, 88px); font-weight: 600;
+  line-height: 1; letter-spacing: -0.01em;
+  animation: fadeUp 0.9s ease 1.5s both;
+}
+.hero-line {
+  width: 48px; height: 1px; background: var(--accent);
+  margin: 40px 0 28px;
+  animation: expandLine 1s ease 1.65s both;
+}
+@keyframes expandLine { from { width: 0; } to { width: 48px; } }
+.hero-sub {
+  font-size: 15px; line-height: 1.75; color: var(--muted); max-width: 300px;
+  animation: fadeUp 0.9s ease 1.8s both;
+}
+
+.hero-right {
+  position: relative; display: flex; align-items: center;
+  justify-content: center; background: var(--white); overflow: hidden;
+}
+.circle-motif {
+  width: 420px; height: 420px; border-radius: 50%;
+  border: 1px solid rgba(200,149,108,0.15);
+  position: absolute;
+  animation: spin 40s linear infinite;
+}
+.circle-motif:nth-child(2) { width: 340px; height: 340px; border-color: rgba(200,149,108,0.1); animation-direction: reverse; animation-duration: 30s; }
+.circle-motif:nth-child(3) { width: 260px; height: 260px; border-color: rgba(200,149,108,0.2); animation-duration: 50s; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.hero-number {
+  font-family: 'Cormorant Garamond', serif; font-size: 200px; font-weight: 300;
+  color: rgba(200,149,108,0.08); position: absolute; line-height: 1;
+  letter-spacing: -0.05em; animation: fadeUp 1s ease 1.4s both; user-select: none;
+}
+.hero-candle-wrap { position: relative; z-index: 2; text-align: center; animation: fadeUp 1s ease 1.6s both; }
+.candle-icon { font-size: 80px; filter: drop-shadow(0 8px 24px rgba(200,149,108,0.25)); }
+.candle-caption { font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-top: 20px; }
+.hero-corner {
+  position: absolute; bottom: 40px; right: 40px; font-size: 11px;
+  letter-spacing: 0.15em; color: var(--muted); text-transform: uppercase;
+  writing-mode: vertical-rl; opacity: 0.5; animation: fadeUp 1s ease 2s both;
+}
+
+/* ── SECTION SPARKLE ACCENTS ── */
+.spark-dot {
+  position: absolute;
+  width: 5px; height: 5px;
+  background: var(--gold);
+  clip-path: polygon(50% 0%,55% 43%,100% 50%,55% 57%,50% 100%,45% 57%,0% 50%,45% 43%);
+  opacity: 0;
+  animation: sparkPulse 3s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes sparkPulse {
+  0%,100% { opacity: 0; transform: scale(0.5) rotate(0deg); }
+  40%,60% { opacity: 0.55; transform: scale(1.3) rotate(25deg); }
+}
+
+/* ── DIVIDER ── */
+.divider {
+  display: flex; align-items: center; gap: 24px;
+  padding: 0 60px; margin: 80px 0; position: relative;
+}
+.divider-line { flex: 1; height: 1px; background: var(--line); }
+.divider-text { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+
+/* ── FUNNY SECTION ── */
+.funny-section {
+  padding: 0 60px 100px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+}
+.funny-block {
+  padding: 64px 56px; border-right: 1px solid var(--line);
+  position: relative; overflow: hidden;
+}
+.funny-block:last-child { border-right: none; }
+.block-num {
+  font-family: 'Cormorant Garamond', serif; font-size: 11px;
+  letter-spacing: 0.3em; color: var(--muted); margin-bottom: 40px; display: block;
+}
+.minus-display {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(72px, 10vw, 120px); font-weight: 300;
+  line-height: 0.9; letter-spacing: -0.03em; margin-bottom: 24px;
+}
+.minus-display span { color: var(--accent); font-style: italic; }
+.magic-days {
+  font-size: 12px; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 24px; font-weight: 400;
+}
+.block-body { font-size: 15px; line-height: 1.8; color: var(--muted); max-width: 360px; }
+.block-body strong { color: var(--ink); font-weight: 500; }
+
+/* ── PROGRESS FRAMEWORK & CONTINUOUS FLUID ANIMATION ── */
+.progress-wrap {
+  margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--line);
+}
+.progress-label {
+  display: flex; justify-content: space-between;
+  font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 10px;
+}
+.progress-label .prog-title { color: var(--ink); font-size: 12px; letter-spacing: 0.08em; font-weight: 400; }
+
+.custom-progress-container {
+  position: relative;
+  width: 100%;
+  padding-left: 28px;
+  margin-top: 12px;
+  margin-bottom: 24px;
+}
+.bar-ornament-left {
+  position: absolute;
+  left: -12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  z-index: 10;
+  filter: drop-shadow(0 0 6px rgba(212,169,106,0.4));
+}
+.progress-frame {
+  position: relative;
+  width: 100%;
+  height: 11px;
+  background: rgba(28, 25, 23, 0.04);
+  border-top: 1px solid rgba(200, 149, 108, 0.45);
+  border-bottom: 1px solid rgba(200, 149, 108, 0.45);
+  padding: 2px 0;
+  box-shadow: 0 0 8px rgba(200, 149, 108, 0.08);
+}
+.bar-ornament-top {
+  position: absolute;
+  right: 20%;
+  top: -10px;
+  width: 45px;
+  height: 15px;
+  color: var(--accent);
+  opacity: 0.85;
+  pointer-events: none;
+}
+.progress-fill-track {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+.custom-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent2) 0%, var(--accent) 25%, var(--gold) 50%, var(--accent) 75%, var(--accent2) 100%);
+  background-size: 200% auto;
+  box-shadow: 0 0 14px var(--gold), 0 0 6px var(--accent);
+  position: relative;
+  animation: fluidMove 2.5s linear infinite;
+}
+@keyframes fluidMove {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+.custom-fill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.35) 50%, rgba(255,255,255,0) 100%);
+  background-size: 150% auto;
+  filter: blur(0.5px);
+  animation: liquidShimmer 2s infinite linear;
+}
+@keyframes liquidShimmer {
+  0% { background-position: -150% 0; }
+  100% { background-position: 150% 0; }
+}
+.prog-meta {
+  display: flex; justify-content: space-between;
+  font-size: 11px; color: var(--muted); margin-top: 4px;
+}
+.prog-pct {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; font-weight: 300; color: var(--accent);
+  font-style: italic;
+}
+
+/* ── MINIMAL MARRIAGE SECTION ── */
+.marriage-section {
+  padding: 100px 60px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  border-bottom: 1px solid var(--line);
+  align-items: center;
+}
+.marriage-text h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(40px, 5vw, 60px);
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 20px 0;
+}
+.marriage-text h2 em { font-style: italic; color: var(--accent); }
+.marriage-text p { font-size: 15px; line-height: 1.8; color: var(--muted); max-width: 420px; }
+
+/* ── SIBLING PROTOCOL MATRIX ── */
+.matrix-section {
+  padding: 100px 60px;
+  border-bottom: 1px solid var(--line);
+}
+.matrix-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 40px;
+}
+.matrix-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  padding: 36px 32px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.matrix-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(200,149,108,0.06);
+}
+.matrix-card h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+.matrix-reveal {
+  font-size: 14px;
+  color: var(--accent2);
+  font-style: italic;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  line-height: 1.6;
+  transition: max-height 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
+}
+.matrix-card.active .matrix-reveal {
+  max-height: 250px; /* Safe bounds to absolutely prevent text clipping */
+  opacity: 1;
+  margin-top: 16px;
+}
+.matrix-hint {
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 20px;
+  display: block;
+}
+.matrix-card.active .matrix-hint { display: none; }
+
+/* ── SEALED LETTER ── */
+.letter-section {
+  padding: 120px 60px;
+  text-align: center;
+  border-bottom: 1px solid var(--line);
+  background: rgba(28,25,23,0.015);
+}
+.letter-wrapper { max-width: 650px; margin: 0 auto; }
+.letter-btn {
+  background: none;
+  border: 1px solid var(--accent);
+  color: var(--ink);
+  padding: 18px 36px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.35s;
+}
+.letter-btn:hover {
+  background: var(--ink);
+  color: var(--bg);
+  border-color: var(--ink);
+}
+.letter-box {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: all 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+  margin-top: 40px;
+  text-align: left;
+  background: var(--white);
+  border: 1px solid var(--line);
+  padding: 0 48px;
+  box-shadow: 0 16px 40px rgba(28,25,23,0.03);
+}
+.letter-box.open {
+  max-height: 600px;
+  opacity: 1;
+  padding: 56px 48px;
+}
+.letter-box p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  line-height: 1.8;
+  color: var(--ink);
+  font-style: italic;
+}
+.letter-sig {
+  margin-top: 32px;
+  text-align: right;
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 400;
+}
+
+/* ── STAT LIST ── */
+.stat-list { margin-top: 40px; display: flex; flex-direction: column; gap: 0; }
+.stat-item {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 18px 0; border-bottom: 1px solid var(--line); font-size: 14px;
+}
+.stat-item:last-child { border-bottom: none; }
+.stat-label { color: var(--muted); }
+.stat-value { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 400; }
+.stat-value.funny-val { font-style: italic; color: var(--accent); font-size: 15px; }
+
+/* ── QUALITIES ── */
+.qualities-section { padding: 100px 60px; }
+.section-header {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  margin-bottom: 64px; padding-bottom: 32px; border-bottom: 1px solid var(--line);
+}
+.section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(40px,5vw,60px); font-weight: 300; line-height: 1.05; letter-spacing: -0.02em; }
+.section-title em { font-style: italic; color: var(--accent); }
+.section-count { font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); padding-bottom: 4px; }
+.qualities-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; }
+.quality-item {
+  padding: 40px 36px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  position: relative; overflow: hidden; transition: background 0.3s ease;
+}
+.quality-item:hover { background: var(--white); }
+.quality-item:nth-child(3n) { border-right: none; }
+.quality-item:nth-child(4), .quality-item:nth-child(5), .quality-item:nth-child(6) { border-bottom: none; }
+.quality-index { font-family: 'Cormorant Garamond', serif; font-size: 13px; color: rgba(200,149,108,0.5); margin-bottom: 20px; display: block; }
+.quality-name { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 400; margin-bottom: 12px; line-height: 1.2; }
+.quality-desc { font-size: 13.5px; line-height: 1.7; color: var(--muted); }
+.quality-item::before {
+  content: ''; position: absolute; left: 0; top: 0;
+  width: 2px; height: 0; background: var(--accent);
+  transition: height 0.4s ease;
+}
+.quality-item:hover::before { height: 100%; }
+
+/* floating wish symbol in quality cells */
+.quality-wish {
+  position: absolute; bottom: 14px; right: 18px;
+  font-family: 'Cormorant Garamond', serif; font-size: 22px;
+  color: rgba(200,149,108,0.12); font-style: italic;
+  pointer-events: none; transition: color 0.3s, transform 0.3s;
+  user-select: none;
+}
+.quality-item:hover .quality-wish { color: rgba(200,149,108,0.28); transform: rotate(-6deg) scale(1.1); }
+
+/* ── RECEIPT ── */
+.receipt-section {
+  padding: 80px 60px;
+  display: grid; grid-template-columns: 1fr 480px; gap: 80px;
+  align-items: start; border-top: 1px solid var(--line);
+}
+.receipt-intro .section-eyebrow { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 24px; }
+.receipt-intro h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px,4vw,52px); font-weight: 300; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 24px; }
+.receipt-intro h2 em { font-style: italic; color: var(--accent); }
+.receipt-intro p { font-size: 15px; line-height: 1.8; color: var(--muted); }
+.receipt-card { background: var(--white); border: 1px solid var(--line); padding: 48px 40px; font-family: 'Outfit', sans-serif; font-weight: 300; }
+.r-store { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; letter-spacing: 0.1em; text-align: center; margin-bottom: 4px; }
+.r-tagline { text-align: center; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); padding-bottom: 28px; border-bottom: 1px solid var(--line); margin-bottom: 24px; }
+.r-row { display: flex; justify-content: space-between; font-size: 13px; padding: 10px 0; border-bottom: 1px solid rgba(28,25,23,0.06); align-items: baseline; }
+.r-row:last-of-type { border-bottom: none; }
+.r-key { color: var(--muted); }
+.r-val { font-family: 'Cormorant Garamond', serif; font-size: 16px; }
+.r-val.italic { font-style: italic; color: var(--accent); }
+.r-total-row { display: flex; justify-content: space-between; padding: 20px 0 0; margin-top: 12px; border-top: 1px solid var(--ink); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; }
+.r-total-val { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: var(--accent); font-style: italic; }
+.r-footer { text-align: center; font-size: 11px; letter-spacing: 0.15em; color: var(--muted); margin-top: 28px; padding-top: 20px; border-top: 1px dashed var(--line); line-height: 1.6; }
+
+/* ── FINALE ── */
+.finale {
+  padding: 120px 60px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+  border-top: 1px solid var(--line); min-height: 60vh;
+  position: relative; overflow: hidden;
+}
+.finale-left {
+  padding-right: 80px; border-right: 1px solid var(--line);
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.finale-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(52px,7vw,88px); font-weight: 300; line-height: 0.95; letter-spacing: -0.02em; }
+.finale-title em { font-style: italic; color: var(--accent); }
+.finale-right {
+  padding-left: 80px; display: flex; flex-direction: column;
+  justify-content: center; gap: 32px;
+}
+.finale-body { font-size: 16px; line-height: 1.85; color: var(--muted); }
+.finale-body strong { color: var(--ink); font-weight: 500; }
+
+/* ── CELEBRATE BUTTON ── */
+.btn-wrap { position: relative; display: inline-block; }
+.btn {
+  display: inline-flex; align-items: center; gap: 12px;
+  background: var(--ink); color: var(--bg);
+  font-family: 'Outfit', sans-serif; font-size: 12px; font-weight: 400;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  padding: 20px 40px; border: none; cursor: pointer;
+  position: relative; overflow: hidden;
+  transition: color 0.35s, background 0.35s;
+  isolation: isolate;
+}
+.btn::before {
+  content: ''; position: absolute; inset: 0;
+  background: var(--accent);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.45s cubic-bezier(0.76,0,0.24,1);
+  z-index: -1;
+}
+.btn:hover::before { transform: scaleX(1); }
+.btn:hover { color: var(--white); }
+.btn-arrow { display: inline-block; transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1); }
+.btn:hover .btn-arrow { transform: translateX(5px); }
+
+/* ── FLOATING WISH SYMBOLS ── */
+.wish-float {
+  position: absolute;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  color: rgba(200,149,108,0.13);
+  pointer-events: none; user-select: none;
+  animation: wishDrift linear infinite;
+}
+@keyframes wishDrift {
+  0%   { transform: translateY(0) rotate(0deg); opacity: 0; }
+  8%   { opacity: 1; }
+  92%  { opacity: 0.5; }
+  100% { transform: translateY(-60px) rotate(8deg); opacity: 0; }
+}
+
+/* ── FOOTER ── */
+footer {
+  padding: 32px 60px;
+  display: flex; justify-content: space-between; align-items: center;
+  border-top: 1px solid var(--line);
+}
+.footer-left { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: var(--muted); }
+.footer-right { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 20px 28px; }
+  .hero { grid-template-columns: 1fr; min-height: auto; }
+  .hero-left { padding: 120px 28px 60px; border-right: none; border-bottom: 1px solid var(--line); }
+  .hero-right { min-height: 300px; }
+  .circle-motif { width: 260px; height: 260px; }
+  .circle-motif:nth-child(2) { width: 200px; height: 200px; }
+  .circle-motif:nth-child(3) { width: 150px; height: 150px; }
+  .funny-section { grid-template-columns: 1fr; padding: 0 28px 60px; }
+  .funny-block { border-right: none; border-bottom: 1px solid var(--line); padding: 48px 28px; }
+  .funny-block:last-child { border-bottom: none; }
+  .marriage-section { grid-template-columns: 1fr; gap: 40px; padding: 60px 28px; }
+  .matrix-grid { grid-template-columns: 1fr; gap: 16px; }
+  .letter-section { padding: 80px 28px; }
+  .letter-box { padding: 0 24px; }
+  .letter-box.open { padding: 40px 24px; }
+  .qualities-section { padding: 60px 28px; }
+  .qualities-grid { grid-template-columns: 1fr 1fr; }
+  .quality-item:nth-child(2n) { border-right: none; }
+  .quality-item:nth-child(3n) { border-right: 1px solid var(--line); }
+  .quality-item:nth-child(5), .quality-item:nth-child(6) { border-bottom: none; }
+  .quality-item:nth-child(4) { border-bottom: 1px solid var(--line); }
+  .receipt-section { grid-template-columns: 1fr; gap: 40px; padding: 60px 28px; }
+  .finale { grid-template-columns: 1fr; padding: 80px 28px; }
+  .finale-left { padding-right: 0; border-right: none; border-bottom: 1px solid var(--line); padding-bottom: 60px; margin-bottom: 60px; }
+  .finale-right { padding-left: 0; }
+  footer { padding: 28px; flex-direction: column; gap: 12px; text-align: center; }
+  .divider { padding: 0 28px; }
+  .section-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+}
+
+/* ── MUSIC CONTROLLER (CUSTOM) ── */
+.music-player {
+  position: fixed;
+  bottom: 40px;
+  left: 40px;
+  height: 48px;
+  border-radius: 24px;
+  background: rgba(247, 244, 240, 0.85); /* var(--bg) with opacity */
+  border: 1px solid var(--line);
+  color: var(--ink);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  z-index: 1000;
+  box-shadow: 0 8px 32px rgba(28, 25, 23, 0.05);
+  transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  overflow: hidden;
+  max-width: 48px; /* Collapsed state width */
+  cursor: pointer;
+}
+
+/* Hover or Expanded state */
+.music-player.expanded,
+.music-player:hover {
+  max-width: 320px; /* Expanded state width */
+  padding: 0 16px;
+  box-shadow: 0 12px 36px rgba(200, 149, 108, 0.12);
+  border-color: var(--accent);
+}
+
+.music-player-inner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: max-content;
+  height: 100%;
+}
+
+/* Equalizer Bars (Visible when collapsed & playing) */
+.eq-container {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  width: 32px;
+  height: 32px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.eq-bar {
+  width: 2px;
+  height: 3px;
+  background: var(--ink);
+  border-radius: 1px;
+  transition: height 0.2s ease, background 0.3s ease;
+}
+
+/* When playing, animate equalizers */
+.music-player.playing .eq-bar {
+  background: var(--accent);
+  animation: eqBounce 1.2s ease-in-out infinite alternate;
+}
+.music-player.playing .eq-bar:nth-child(1) { animation-delay: 0.1s; }
+.music-player.playing .eq-bar:nth-child(2) { animation-delay: 0.3s; }
+.music-player.playing .eq-bar:nth-child(3) { animation-delay: 0.2s; }
+.music-player.playing .eq-bar:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes eqBounce {
+  0% { height: 3px; }
+  100% { height: 16px; }
+}
+
+/* Controls section (revealed inside capsule) */
+.player-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  pointer-events: none;
+}
+
+.music-player.expanded .player-controls,
+.music-player:hover .player-controls {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+/* Elegant Control Buttons */
+.ctrl-btn {
+  background: none;
+  border: none;
+  color: var(--ink);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.ctrl-btn:hover {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.ctrl-btn svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+}
+
+/* Dynamic Track Information */
+.track-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.4s ease 0.1s;
+}
+
+.music-player.expanded .track-info,
+.music-player:hover .track-info {
+  opacity: 1;
+}
+
+.track-label {
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  line-height: 1;
+  margin-bottom: 2px;
+}
+
+.track-title {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  line-height: 1.1;
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .music-player {
+    bottom: 24px;
+    left: 24px;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="page-reveal"></div>
+
+<canvas id="sparkle-canvas"></canvas>
+
+<nav>
+  <span class="nav-logo">For Mansi</span>
+  <span class="nav-date">A Birthday Note</span>
+</nav>
+
+<section class="hero">
+  <div class="hero-live-particles">
+    <span class="hero-p" style="top:25%; left:15%; animation-delay:0s; font-size:20px;">✦</span>
+    <span class="hero-p" style="top:60%; left:45%; animation-delay:1.5s; font-size:14px;">✧</span>
+    <span class="hero-p" style="top:40%; left:80%; animation-delay:3s; font-size:18px;">✿</span>
+    <span class="hero-p" style="top:75%; left:20%; animation-delay:4.5s; font-size:16px;">✦</span>
+    <span class="hero-p" style="top:15%; left:70%; animation-delay:2.2s; font-size:12px;">✧</span>
+  </div>
+  
+  <div class="hero-left">
+    <span class="wish-float" style="font-size:28px;top:28%;left:8%;animation-duration:9s;animation-delay:2s;">✦</span>
+    <span class="wish-float" style="font-size:16px;top:55%;left:78%;animation-duration:12s;animation-delay:5s;">✿</span>
+    <span class="wish-float" style="font-size:22px;top:70%;left:40%;animation-duration:10s;animation-delay:0s;">◆</span>
+    <p class="hero-eyebrow">With warmth &amp; a little wit</p>
+    <h1 class="hero-title">Happy<br><em>Birthday</em></h1>
+    <div class="hero-name">Mansi.</div>
+    <div class="hero-line"></div>
+    <p class="hero-sub">A celebration of you — the laughs, the light, and yes, the gentle reminder that time waits for no one. Including you. 🕯️</p>
+  </div>
+  <div class="hero-right">
+    <div class="circle-motif"></div>
+    <div class="circle-motif"></div>
+    <div class="circle-motif"></div>
+    <div class="hero-number">∞</div>
+    <div class="spark-dot" style="top:20%;left:20%;animation-delay:0.3s;"></div>
+    <div class="spark-dot" style="top:75%;left:72%;animation-delay:1.2s;width:8px;height:8px;"></div>
+    <div class="spark-dot" style="top:38%;left:80%;animation-delay:2.1s;"></div>
+    <div class="spark-dot" style="top:60%;left:18%;animation-delay:0.8s;width:7px;height:7px;"></div>
+    <div class="hero-candle-wrap">
+      <div class="candle-icon">🕯️</div>
+      <div class="candle-caption">Make it count</div>
+    </div>
+    <div class="hero-corner">Another lap around the sun</div>
+  </div>
+</section>
+
+<div class="divider fade">
+  <div class="divider-line"></div>
+  <div class="divider-text">✦ The Annual Life Audit ✦</div>
+  <div class="divider-line"></div>
+</div>
+
+<section class="funny-section">
+  <div class="funny-block fade" style="position:relative;">
+    <div class="spark-dot" style="top:12%;left:88%;animation-delay:0.5s;"></div>
+    <div class="spark-dot" style="top:82%;left:92%;animation-delay:1.8s;width:7px;height:7px;"></div>
+    <span class="block-num">01 — The Official Notice</span>
+    <div class="minus-display">Happy −<span>1</span><br>Year</div>
+    
+    <div class="magic-days">✦ Existence Log: <span id="days-count">0</span> Days Total</div>
+    
+    <p class="block-body">
+      As per universal law, every birthday officially deducts
+      <strong>one year from your remaining life quota.</strong>
+      The good news — you are currently operating at absolute prime health and vitality metrics.
+      <br><br>
+      Think of it as a subscription autorenewing at a slightly higher price each year.
+      No cancellations. No refunds. <strong>Entirely worth it.</strong>
+    </p>
+    
+    <div class="progress-wrap" id="metrics-panel">
+      <div class="progress-label">
+        <span class="prog-title">Youth Vitality Bar</span>
+        <span class="prog-pct" id="pct-label-life">0%</span>
+      </div>
+      
+      <div class="custom-progress-container">
+        <svg class="bar-ornament-left" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M112 55C102 40 86 36 70 44C52 52 45 72 28 69C15 67 10 50 24 35C4 50 2 74 18 90C36 106 66 102 86 84C101 70 110 60 112 55Z" fill="url(#bar-gold-grad)" />
+          <path d="M85 32C72 18 52 22 42 35C48 39 58 35 65 39C72 43 70 52 60 49C80 49 90 42 85 32Z" fill="url(#bar-gold-grad)" />
+          <defs>
+            <linearGradient id="bar-gold-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#d4a96a" />
+              <stop offset="100%" stop-color="#c8956c" />
+            </linearGradient>
+          </defs>
+        </svg>
+        
+        <div class="progress-frame">
+          <svg class="bar-ornament-top" viewBox="0 0 60 20" fill="currentColor">
+            <path d="M0 20C15 20 20 5 30 5C40 5 45 15 60 15C45 15 40 10 30 10C20 10 15 20 0 20Z" />
+          </svg>
+          <div class="progress-fill-track">
+            <div class="custom-fill" id="custom-fill-life"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prog-meta">
+        <span>Fabulousness: intact</span>
+        <span id="seg-status-life">Monitoring system...</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="funny-block fade">
+    <div class="spark-dot" style="top:8%;left:90%;animation-delay:1s;"></div>
+    <span class="block-num">02 — Year-on-Year Metrics</span>
+    <div class="stat-list">
+      <div class="stat-item"><span class="stat-label">Wisdom accumulated</span><span class="stat-value">+∞</span></div>
+      <div class="stat-item"><span class="stat-label">Elegance level</span><span class="stat-value">↑ Peak</span></div>
+      <div class="stat-item"><span class="stat-label">Metabolism — 2 years ago</span><span class="stat-value funny-val">Present &amp; thriving</span></div>
+      <div class="stat-item"><span class="stat-label">Metabolism — now</span><span class="stat-value funny-val">Left the chat</span></div>
+      <div class="stat-item"><span class="stat-label">Dance floor recovery time</span><span class="stat-value funny-val">+3 business days</span></div>
+      <div class="stat-item"><span class="stat-label">Saying "I'm fine" convincingly</span><span class="stat-value funny-val">Record high</span></div>
+      <div class="stat-item"><span class="stat-label">Sleep requirement per night</span><span class="stat-value funny-val">+2 hrs / year</span></div>
+      <div class="stat-item"><span class="stat-label">Net fabulousness balance</span><span class="stat-value">Infinite 💅</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="marriage-section fade" id="marriage-section-panel">
+  <div class="marriage-text">
+    <span class="block-num">03 — Co-op Calibration</span>
+    <h2>Also Happy<br><em>Marriage</em></h2>
+    <p>
+      Life functions beautifully in single-player, but conquering grand milestones alongside your ideal co-op partner maximizes your server architecture safely. Thriving, synchronized, and completely balanced.
+    </p>
+  </div>
+  
+  <div class="marriage-visual" style="width:100%; max-width:500px; margin:0 auto;">
+    <div class="progress-label">
+      <span class="prog-title">Marriage Bliss Index</span>
+      <span class="prog-pct" id="pct-label-marriage">0%</span>
+    </div>
+    
+    <div class="custom-progress-container">
+      <svg class="bar-ornament-left" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M112 55C102 40 86 36 70 44C52 52 45 72 28 69C15 67 10 50 24 35C4 50 2 74 18 90C36 106 66 102 86 84C101 70 110 60 112 55Z" fill="url(#bar-gold-grad-2)" />
+        <path d="M85 32C72 18 52 22 42 35C48 39 58 35 65 39C72 43 70 52 60 49C80 49 90 42 85 32Z" fill="url(#bar-gold-grad-2)" />
+        <defs>
+          <linearGradient id="bar-gold-grad-2" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#d4a96a" />
+            <stop offset="100%" stop-color="#c8956c" />
+          </linearGradient>
+        </defs>
+      </svg>
+      
+      <div class="progress-frame">
+        <svg class="bar-ornament-top" viewBox="0 0 60 20" fill="currentColor">
+          <path d="M0 20C15 20 20 5 30 5C40 5 45 15 60 15C45 15 40 10 30 10C20 10 15 20 0 20Z" />
+        </svg>
+        <div class="progress-fill-track">
+          <div class="custom-fill" id="custom-fill-marriage"></div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="prog-meta">
+      <span>Status: Exceptionally Stable</span>
+      <span id="seg-status-marriage">Awaiting calibration...</span>
+    </div>
+  </div>
+</section>
+
+<section class="matrix-section fade">
+  <div class="section-header">
+    <h2 class="section-title">The Sibling<br><em>Protocol Matrix</em></h2>
+    <span class="section-count">Click to audit</span>
+  </div>
+  
+  <div class="matrix-grid">
+    <div class="matrix-card">
+      <h3>Tech Support Guarantee</h3>
+      <p class="matrix-reveal">Lifetime engineering support warranty included natively, though server uptime and patch deployment parameters remain highly dependent on live active gaming hours.</p>
+      <span class="matrix-hint">Verify Status →</span>
+    </div>
+    
+    <div class="matrix-card">
+      <h3>The Co-Op Expansion</h3>
+      <p class="matrix-reveal">Karan has successfully initialized connections and integrated with the primary nodes. Total family structural safety configurations are calculated at an all-time optimal peak metric.</p>
+      <span class="matrix-hint">Review Integrity →</span>
+    </div>
+  </div>
+</section>
+
+<section class="letter-section fade">
+  <div class="letter-wrapper">
+    <button class="letter-btn" id="letter-toggle-btn">Open Sealed Letter ▼</button>
+    <div class="letter-box" id="sealed-letter-box">
+      <p>
+        To Mansi,<br><br>
+        Reaching this milestone means successfully finishing another superb tour around the sun. From managing massive adjustments to orchestrating everyday logs, you carry everything with a natural grace and authority that is genuinely impressive to observe. 
+        <br><br>
+        As your brother, it is my absolute permanent mandate to poke fun at you moving up our tracking systems checklist, but it is an honor to watch you configure such a stellar path forward. Here's to more deep conversations, flawless wit, and incredible things ahead.
+      </p>
+      <div class="letter-sig">— Vyom</div>
+    </div>
+  </div>
+</section>
+
+<section class="qualities-section">
+  <div class="section-header fade">
+    <h2 class="section-title">Things the world<br>gains, having <em>you.</em></h2>
+    <span class="section-count">06 qualities</span>
+  </div>
+  <div class="qualities-grid">
+    <div class="quality-item fade">
+      <span class="quality-index">01</span>
+      <div class="quality-name">Effortless Presence</div>
+      <p class="quality-desc">You walk into a room and it immediately becomes the right room to be in. No effort required.</p>
+      <span class="quality-wish">✦</span>
+    </div>
+    <div class="quality-item fade">
+      <span class="quality-index">02</span>
+      <div class="quality-name">Rare Clarity</div>
+      <p class="quality-desc">Your ideas operate on a frequency the rest of us are still trying to tune into. Genuinely ahead of the curve.</p>
+      <span class="quality-wish">✿</span>
+    </div>
+    <div class="quality-item fade">
+      <span class="quality-index">03</span>
+      <div class="quality-name">Disarming Wit</div>
+      <p class="quality-desc">Your commentary on everyday life could sell out venues. It is, without question, a gift to everyone around you.</p>
+      <span class="quality-wish">◆</span>
+    </div>
+    <div class="quality-item fade">
+      <span class="quality-index">04</span>
+      <div class="quality-name">Quiet Resilience</div>
+      <p class="quality-desc">You handle what life throws and ask for more. That kind of composure is extraordinarily rare.</p>
+      <span class="quality-wish">✦</span>
+    </div>
+    <div class="quality-item fade">
+      <span class="quality-index">05</span>
+      <div class="quality-name">Genuine Warmth</div>
+      <p class="quality-desc">Being near you feels like standing in good light. The kind that makes everything look a little better.</p>
+      <span class="quality-wish">✿</span>
+    </div>
+    <div class="quality-item fade">
+      <span class="quality-index">06</span>
+      <div class="quality-name">One of a Kind</div>
+      <p class="quality-desc">The universe made one Mansi, considered making another, and wisely decided the original was a masterpiece.</p>
+      <span class="quality-wish">◆</span>
+    </div>
+  </div>
+</section>
+
+<section class="receipt-section">
+  <div class="receipt-intro fade">
+    <span class="section-eyebrow">The Ledger</span>
+    <h2>Your <em>Birthday<br>Receipt</em></h2>
+    <p>Every year comes with a bill. Here's yours — carefully itemised, slightly alarming, and entirely unavoidable. The good news: your balance sheet looks exceptional.</p>
+  </div>
+  <div class="receipt-card fade" style="position:relative;">
+    <div class="spark-dot" style="top:4%;right:6%;animation-delay:0.7s;position:absolute;"></div>
+    <div class="r-store">LIFE™</div>
+    <div class="r-tagline">Where every year costs more than the last</div>
+    <div class="r-row"><span class="r-key">Wisdom</span><span class="r-val">+ Immeasurable</span></div>
+    <div class="r-row"><span class="r-key">Confidence</span><span class="r-val">↑ All-time high</span></div>
+    <div class="r-row"><span class="r-key">Responsibilities</span><span class="r-val italic">Too many to list</span></div>
+    <div class="r-row"><span class="r-key">Metabolism on duty</span><span class="r-val italic">Resigned. No notice.</span></div>
+    <div class="r-row"><span class="r-key">Post-party recovery</span><span class="r-val italic">3 business days min.</span></div>
+    <div class="r-row"><span class="r-key">Unsolicited advice given</span><span class="r-val italic">Historic volume</span></div>
+    <div class="r-row"><span class="r-key">Years deducted</span><span class="r-val">− 1</span></div>
+    <div class="r-row"><span class="r-key">Years of fabulousness remaining</span><span class="r-val">∞</span></div>
+    <div class="r-total-row">
+      <span>Net balance</span>
+      <span class="r-total-val">Iconic</span>
+    </div>
+    <div class="r-footer">
+      Thank you for choosing existence.<br>
+      Please return next year. — The Universe
+    </div>
+  </div>
+</section>
+
+<section class="finale">
+  <div class="spark-dot" style="position:absolute;top:15%;left:48%;animation-delay:0.4s;width:9px;height:9px;"></div>
+  <div class="spark-dot" style="position:absolute;top:72%;left:52%;animation-delay:1.6s;"></div>
+  <div class="spark-dot" style="position:absolute;top:40%;right:5%;animation-delay:2.4s;width:6px;height:6px;"></div>
+
+  <div class="finale-left fade">
+    <h2 class="finale-title">Here's<br>to you,<br><em>Mansi.</em></h2>
+  </div>
+  <div class="finale-right fade">
+    <p class="finale-body">
+      May this year bring you more joy than the last, more ease than you expect, and more evidence — if any were needed — that <strong>life only keeps getting better.</strong>
+      <br><br>
+      Even if it does, technically, keep getting shorter.
+      That's just the deal. <strong>You're making it a very good one.</strong>
+    </p>
+    <div class="btn-wrap">
+      <button class="btn" id="celebrate-btn">
+        Celebrate <span class="btn-arrow">→</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-left">"Subtract the years, keep the magic."</span>
+  <span class="footer-right">Happy Birthday, Mansi</span>
+</footer>
+
+<!-- Elegant Glassmorphic Music Player -->
+<div class="music-player" id="custom-music-player">
+  <div class="music-player-inner">
+    <!-- Equalizer Visualizer (Always visible, acts as toggle) -->
+    <div class="eq-container" id="player-eq-toggle" title="Expand Player">
+      <div class="eq-bar"></div>
+      <div class="eq-bar"></div>
+      <div class="eq-bar"></div>
+      <div class="eq-bar"></div>
+    </div>
+    
+    <!-- Controls (Shown when expanded/hovered) -->
+    <div class="player-controls">
+      <!-- Play/Pause Button -->
+      <button class="ctrl-btn" id="player-play-btn" title="Play / Pause">
+        <svg id="play-icon" viewBox="0 0 24 24">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+        <svg id="pause-icon" viewBox="0 0 24 24" style="display: none;">
+          <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+        </svg>
+      </button>
+      
+      <!-- Skip Next Button -->
+      <button class="ctrl-btn" id="player-next-btn" title="Next Song">
+        <svg viewBox="0 0 24 24">
+          <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/>
+        </svg>
+      </button>
+    </div>
+    
+    <!-- Track Title Display -->
+    <div class="track-info">
+      <span class="track-label">Ambient Sound</span>
+      <span class="track-title" id="player-track-title">Zara Sa (Inst.)</span>
+    </div>
+  </div>
+</div>
+
+<audio id="bg-music-element">
+  <source src="zara-sa-instrumental.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+/* ═══════════════════════════════════════════════
+   SCROLL FADE-IN OBSERVER
+═══════════════════════════════════════════════ */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.fade').forEach(el => io.observe(el));
+
+/* ═══════════════════════════════════════════════
+   SMOOTH LIFE & MARRIAGE BARS ANIMATIONS
+═══════════════════════════════════════════════ */
+const lifeTarget = 88;       
+const marriageTarget = 100;  
+const daysTarget = 10227;
+
+const fillLife = document.getElementById('custom-fill-life');
+const fillMarriage = document.getElementById('custom-fill-marriage');
+const lblLife = document.getElementById('pct-label-life');
+const lblMarriage = document.getElementById('pct-label-marriage');
+const lblDays = document.getElementById('days-count');
+const statusLife = document.getElementById('seg-status-life');
+const statusMarriage = document.getElementById('seg-status-marriage');
+
+function animateLifeBar() {
+  const duration = 1600; 
+  const startTime = performance.now();
+  
+  function update(timestamp) {
+    const elapsed = timestamp - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    
+    const currentLife = ease * lifeTarget;
+    const currentDays = ease * daysTarget;
+    
+    fillLife.style.width = currentLife + '%';
+    lblLife.textContent = Math.round(currentLife) + '%';
+    lblDays.textContent = Math.round(currentDays).toLocaleString();
+    
+    if (progress < 1) {
+      requestAnimationFrame(update);
+    } else {
+      statusLife.textContent = 'Still going strong ✦';
+    }
+  }
+  statusLife.textContent = 'Recalibrating vitality matrix...';
+  requestAnimationFrame(update);
+}
+
+function animateMarriageBar() {
+  const duration = 1600; 
+  const startTime = performance.now();
+  
+  function update(timestamp) {
+    const elapsed = timestamp - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    const currentMarriage = ease * marriageTarget;
+    
+    fillMarriage.style.width = currentMarriage + '%';
+    lblMarriage.textContent = Math.round(currentMarriage) + '%';
+    
+    if (progress < 1) {
+      requestAnimationFrame(update);
+    } else {
+      statusMarriage.textContent = 'Partnership status: Flawless ✦';
+    }
+  }
+  statusMarriage.textContent = 'Syncing core alignment...';
+  requestAnimationFrame(update);
+}
+
+const lifeIo = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { animateLifeBar(); lifeIo.disconnect(); } });
+}, { threshold: 0.2 });
+lifeIo.observe(document.getElementById('metrics-panel'));
+
+const marriageIo = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { animateMarriageBar(); marriageIo.disconnect(); } });
+}, { threshold: 0.2 });
+marriageIo.observe(document.getElementById('marriage-section-panel'));
+
+/* ═══════════════════════════════════════════════
+   INTERACTIVE MATRIX CLICK AUDIT
+═══════════════════════════════════════════════ */
+document.querySelectorAll('.matrix-card').forEach(card => {
+  card.addEventListener('click', () => {
+    card.classList.toggle('active');
+  });
+});
+
+/* ═══════════════════════════════════════════════
+   SEALED LETTER INTERACTIVE SLIDEDOWN
+═══════════════════════════════════════════════ */
+const letterBtn = document.getElementById('letter-toggle-btn');
+const letterBox = document.getElementById('sealed-letter-box');
+
+letterBtn.addEventListener('click', () => {
+  letterBox.classList.toggle('open');
+  letterBtn.textContent = letterBox.classList.contains('open') ? 'Close Letter ▲' : 'Open Sealed Letter ▼';
+});
+
+/* ═══════════════════════════════════════════════
+   SPARKLE CANVAS ENGINE
+═══════════════════════════════════════════════ */
+const canvas = document.getElementById('sparkle-canvas');
+const ctx    = canvas.getContext('2d');
+
+function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+resize();
+window.addEventListener('resize', resize);
+
+function mkParticle(x, y, burst) {
+  const angle  = Math.random() * Math.PI * 2;
+  const speed  = burst ? (3 + Math.random() * 11) : (0.3 + Math.random() * 0.8);
+  const shapes = ['star4','circle','streak','diamond'];
+  return {
+    x, y,
+    vx: Math.cos(angle) * speed,
+    vy: Math.sin(angle) * speed - (burst ? 1.5 : 0),
+    r:  burst ? (2 + Math.random() * 5) : (1.5 + Math.random() * 2.5),
+    life: 1,
+    decay: burst ? 0.006 + Math.random() * 0.008 : 0.003 + Math.random() * 0.004,
+    color: ['#c8956c','#d4a96a','#1c1917','#9b7b5e','#e8c99a','#b07840'][Math.floor(Math.random()*6)],
+    shape: shapes[Math.floor(Math.random() * (burst ? 4 : 2))],
+    rot: Math.random() * Math.PI * 2,
+    spin: (Math.random() - 0.5) * 0.18,
+    gravity: burst ? 0.12 : 0,
+    burst,
+    wobble: Math.random() * Math.PI * 2,
+    wobbleSpeed: 0.04 + Math.random() * 0.06,
+  };
+}
+
+function drawParticle(p) {
+  ctx.save();
+  ctx.globalAlpha = Math.max(0, p.life);
+  ctx.fillStyle = p.color;
+  ctx.strokeStyle = p.color;
+  ctx.translate(p.x, p.y);
+  ctx.rotate(p.rot);
+
+  if (p.shape === 'circle') {
+    ctx.beginPath(); ctx.arc(0, 0, p.r, 0, Math.PI * 2); ctx.fill();
+  } else if (p.shape === 'star4') {
+    const s = p.r, is = s * 0.42;
+    ctx.beginPath();
+    for (let i = 0; i < 8; i++) {
+      const a = (i * Math.PI) / 4;
+      const r = i % 2 === 0 ? s : is;
+      i === 0 ? ctx.moveTo(Math.cos(a)*r, Math.sin(a)*r) : ctx.lineTo(Math.cos(a)*r, Math.sin(a)*r);
+    }
+    ctx.closePath(); ctx.fill();
+  } else if (p.shape === 'streak') {
+    ctx.lineWidth = p.r * 0.6;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(0, -p.r * 2.5);
+    ctx.lineTo(0,  p.r * 2.5);
+    ctx.stroke();
+  } else if (p.shape === 'diamond') {
+    ctx.beginPath();
+    ctx.moveTo(0, -p.r * 1.5);
+    ctx.lineTo(p.r, 0);
+    ctx.lineTo(0, p.r * 1.5);
+    ctx.lineTo(-p.r, 0);
+    ctx.closePath(); ctx.fill();
+  }
+  ctx.restore();
+}
+
+let particles = [];
+
+function spawnAmbient() {
+  if (particles.filter(p => !p.burst).length < 22) {
+    particles.push(mkParticle(Math.random() * window.innerWidth, window.innerHeight + 10, false));
+  }
+}
+setInterval(spawnAmbient, 600);
+
+function render() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles = particles.filter(p => p.life > 0);
+  particles.forEach(p => {
+    p.wobble += p.wobbleSpeed;
+    p.x  += p.vx + (p.burst ? 0 : Math.sin(p.wobble) * 0.4);
+    p.y  += p.vy;
+    p.vy += p.gravity;
+    p.rot += p.spin;
+    p.life -= p.decay;
+    if (!p.burst && p.y < -20) p.life = 0; 
+    drawParticle(p);
+  });
+  requestAnimationFrame(render);
+}
+render();
+
+/* ═══════════════════════════════════════════════
+   CELEBRATE BUTTON BURST
+═══════════════════════════════════════════════ */
+const celebBtn = document.getElementById('celebrate-btn');
+
+function launchBurst(cx, cy) {
+  for (let i = 0; i < 80; i++) particles.push(mkParticle(cx, cy, true));
+
+  setTimeout(() => {
+    for (let i = 0; i < 50; i++) {
+      const p = mkParticle(cx + (Math.random()-0.5)*60, cy + (Math.random()-0.5)*60, true);
+      p.r *= 0.7;
+      p.decay *= 0.7; 
+      particles.push(p);
+    }
+  }, 220);
+
+  setTimeout(() => {
+    for (let i = 0; i < 40; i++) {
+      const p = mkParticle(cx + (Math.random()-0.5) * window.innerWidth * 0.6, cy + (Math.random()-0.5) * window.innerHeight * 0.4, true);
+      p.vx *= 0.25; p.vy = -1 - Math.random() * 2;
+      p.gravity = 0.03;
+      p.decay = 0.003; 
+      p.r *= 1.4;
+      particles.push(p);
+    }
+  }, 500);
+
+  const corners = [[0,0],[canvas.width,0],[0,canvas.height],[canvas.width,canvas.height]];
+  setTimeout(() => {
+    corners.forEach(([x, y]) => {
+      for (let i = 0; i < 10; i++) {
+        const p = mkParticle(x, y, true);
+        const toX = cx - x, toY = cy - y;
+        const dist = Math.hypot(toX, toY);
+        const spd = 4 + Math.random() * 5;
+        p.vx = (toX / dist) * spd + (Math.random()-0.5)*4;
+        p.vy = (toY / dist) * spd + (Math.random()-0.5)*4;
+        p.decay = 0.004;
+        particles.push(p);
+      }
+    });
+  }, 100);
+}
+
+celebBtn.addEventListener('click', function() {
+  const rect = this.getBoundingClientRect();
+  launchBurst(rect.left + rect.width/2, rect.top + rect.height/2);
+});
+
+/* ═══════════════════════════════════════════════
+   PREMIUM PLAYLIST & CROSS-FADE MUSIC CONTROLLER
+═══════════════════════════════════════════════ */
+const playlist = [
+  { name: "Zara Sa (Inst.)", file: "zara-sa-instrumental.mp3" },
+  { name: "Ordinary", file: "ordinary.mp3" },
+  { name: "Suzume", file: "suzume.mp3" }
+];
+let currentTrackIndex = 0;
+
+const musicAudio = document.getElementById('bg-music-element');
+const playerContainer = document.getElementById('custom-music-player');
+const playBtn = document.getElementById('player-play-btn');
+const playIcon = document.getElementById('play-icon');
+const pauseIcon = document.getElementById('pause-icon');
+const nextBtn = document.getElementById('player-next-btn');
+const trackTitleEl = document.getElementById('player-track-title');
+const eqToggle = document.getElementById('player-eq-toggle');
+
+let isFading = false;
+let fadeInterval = null;
+let autostartTriggered = false;
+
+// Set default volume level
+const targetVolumeLevel = 0.35; 
+
+// Smooth volume fade helper
+function fadeVolume(target, duration, callback) {
+  if (fadeInterval) clearInterval(fadeInterval);
+  isFading = true;
+  
+  const startVolume = musicAudio.volume;
+  const volumeDifference = target - startVolume;
+  const steps = 20;
+  const stepTime = duration / steps;
+  let step = 0;
+  
+  fadeInterval = setInterval(() => {
+    step++;
+    musicAudio.volume = Math.max(0, Math.min(1, startVolume + (volumeDifference * (step / steps))));
+    if (step >= steps) {
+      clearInterval(fadeInterval);
+      musicAudio.volume = target;
+      isFading = false;
+      if (callback) callback();
+    }
+  }, stepTime);
+}
+
+function updateUI() {
+  const track = playlist[currentTrackIndex];
+  trackTitleEl.textContent = track.name;
+  
+  if (musicAudio.paused) {
+    playerContainer.classList.remove('playing');
+    playIcon.style.display = 'block';
+    pauseIcon.style.display = 'none';
+  } else {
+    playerContainer.classList.add('playing');
+    playIcon.style.display = 'none';
+    pauseIcon.style.display = 'block';
+  }
+}
+
+function playTrack() {
+  musicAudio.play().then(() => {
+    updateUI();
+    fadeVolume(targetVolumeLevel, 800);
+  }).catch(err => {
+    console.log("Autoplay blocked or stream issue:", err);
+  });
+}
+
+function pauseTrack() {
+  fadeVolume(0, 400, () => {
+    musicAudio.pause();
+    updateUI();
+  });
+}
+
+function togglePlay(e) {
+  if (e) e.stopPropagation();
+  if (musicAudio.paused) {
+    playTrack();
+  } else {
+    pauseTrack();
+  }
+}
+
+function changeTrack(nextIndex) {
+  // Fade out current song, load next song, then play with fade in
+  fadeVolume(0, 400, () => {
+    musicAudio.pause();
+    currentTrackIndex = nextIndex;
+    musicAudio.src = playlist[currentTrackIndex].file;
+    musicAudio.load();
+    updateUI();
+    playTrack();
+  });
+}
+
+// Next track event listener
+nextBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  const nextIdx = (currentTrackIndex + 1) % playlist.length;
+  changeTrack(nextIdx);
+});
+
+// Play/Pause button event listener
+playBtn.addEventListener('click', togglePlay);
+
+// Clicking the EQ toggle should expand/collapse on mobile, and trigger play/pause if collapsed
+eqToggle.addEventListener('click', (e) => {
+  e.stopPropagation();
+  const isMobile = window.innerWidth <= 900;
+  
+  if (isMobile) {
+    playerContainer.classList.toggle('expanded');
+  } else {
+    // On desktop, click toggles play state
+    togglePlay(e);
+  }
+});
+
+// Click anywhere inside player keeps it open or toggles expanded on click (useful for mobile touch)
+playerContainer.addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (window.innerWidth <= 900) {
+    playerContainer.classList.add('expanded');
+  }
+});
+
+// Clicking outside player closes expanded capsule on mobile
+document.addEventListener('click', () => {
+  playerContainer.classList.remove('expanded');
+});
+
+// Automatically play next song when current track ends
+musicAudio.addEventListener('ended', () => {
+  const nextIdx = (currentTrackIndex + 1) % playlist.length;
+  changeTrack(nextIdx);
+});
+
+// Autostart triggers: User clicks anywhere, scrolls, or touches screen
+function initiateAutostart() {
+  if (autostartTriggered) return;
+  autostartTriggered = true;
+  
+  // Set starting volume to 0 before starting play
+  musicAudio.volume = 0;
+  musicAudio.src = playlist[currentTrackIndex].file;
+  musicAudio.load();
+  
+  playTrack();
+  cleanupAutostartListeners();
+}
+
+function cleanupAutostartListeners() {
+  document.removeEventListener('click', initiateAutostart);
+  document.removeEventListener('scroll', initiateAutostart);
+  document.removeEventListener('touchstart', initiateAutostart);
+}
+
+document.addEventListener('click', initiateAutostart);
+document.addEventListener('scroll', initiateAutostart);
+document.addEventListener('touchstart', initiateAutostart);
+
+// Attempt immediate autoplay on load (if browser rules permit)
+window.addEventListener('DOMContentLoaded', () => {
+  musicAudio.volume = 0;
+  musicAudio.src = playlist[currentTrackIndex].file;
+  musicAudio.load();
+  musicAudio.play().then(() => {
+    autostartTriggered = true;
+    updateUI();
+    fadeVolume(targetVolumeLevel, 800);
+    cleanupAutostartListeners();
+  }).catch(err => {
+    // Autoplay blocked, wait for scroll/click/touch interaction listeners
+    console.log("Immediate autoplay blocked by browser. Awaiting user interaction.");
+  });
+});
+
+// Initialize player UI
+updateUI();
+</script>
+</body>
+</html>
