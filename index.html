@@ -1216,9 +1216,48 @@ document.querySelectorAll('.matrix-card').forEach(card => {
 const letterBtn = document.getElementById('letter-toggle-btn');
 const letterBox = document.getElementById('sealed-letter-box');
 
+/* ═══════════════════════════════════════════════
+   DYNAMIC CELEBRATION CHIME SYNTHESIZER
+═══════════════════════════════════════════════ */
+function playMagicalChime() {
+  const AudioContext = window.AudioContext || window.webkitAudioContext;
+  if (!AudioContext) return;
+  const ctx = new AudioContext();
+  
+  // Dreamy C Major 7th pentatonic scale for a sparkling arpeggio sweep
+  const notes = [523.25, 659.25, 783.99, 987.77, 1046.50, 1318.51, 1567.98, 1975.53, 2093.00, 2637.02];
+  const now = ctx.currentTime;
+  
+  notes.forEach((freq, index) => {
+    // Sweeps up rapidly (45ms interval per note)
+    const time = now + (index * 0.045);
+    
+    const osc = ctx.createOscillator();
+    const gainNode = ctx.createGain();
+    
+    // Triangle wave for sweet, soft chime chime timber, mixed with sine wave
+    osc.type = index % 2 === 0 ? 'triangle' : 'sine';
+    osc.frequency.setValueAtTime(freq, time);
+    
+    // Gain Envelope: Instant magical attack, long shimmering decay
+    gainNode.gain.setValueAtTime(0, time);
+    gainNode.gain.linearRampToValueAtTime(0.08, time + 0.015); 
+    gainNode.gain.exponentialRampToValueAtTime(0.0001, time + 1.4); 
+    
+    osc.connect(gainNode);
+    gainNode.connect(ctx.destination);
+    
+    osc.start(time);
+    osc.stop(time + 1.5);
+  });
+}
+
 letterBtn.addEventListener('click', () => {
   letterBox.classList.toggle('open');
   letterBtn.textContent = letterBox.classList.contains('open') ? 'Close Letter ▲' : 'Open Sealed Letter ▼';
+  if (letterBox.classList.contains('open')) {
+    playMagicalChime();
+  }
 });
 
 /* ═══════════════════════════════════════════════
@@ -1364,6 +1403,7 @@ function launchBurst(cx, cy) {
 celebBtn.addEventListener('click', function() {
   const rect = this.getBoundingClientRect();
   launchBurst(rect.left + rect.width/2, rect.top + rect.height/2);
+  playMagicalChime();
 });
 
 /* ═══════════════════════════════════════════════
