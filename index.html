@@ -1163,8 +1163,7 @@ footer {
   </div>
 </div>
 
-<audio id="bg-music-element">
-  <source src="zara-sa-instrumental.mp3" type="audio/mpeg">
+<audio id="bg-music-element" src="zara-sa-instrumental.mp3">
 </audio>
 
 <script>
@@ -1600,10 +1599,8 @@ musicAudio.addEventListener('ended', () => {
 // Autostart triggers: User clicks anywhere, taps, touches, or presses a key
 let autostartTriggered = false;
 
-// Pre-load default track details immediately
+// Set default volume level immediately (do NOT modify src/load dynamically on load to bypass CORS file:// block)
 musicAudio.volume = 0;
-musicAudio.src = playlist[currentTrackIndex].file;
-musicAudio.load();
 
 function tryAutoplay() {
   if (autostartTriggered) return;
