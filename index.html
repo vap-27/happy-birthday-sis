@@ -384,21 +384,70 @@ nav {
 }
 .letter-wrapper { max-width: 650px; margin: 0 auto; }
 .letter-btn {
-  background: none;
+  background: var(--white);
   border: 1px solid var(--accent);
   color: var(--ink);
-  padding: 18px 36px;
+  padding: 18px 40px;
   font-family: 'Outfit', sans-serif;
-  font-size: 11px;
-  letter-spacing: 0.25em;
+  font-size: 11.5px;
+  font-weight: 400;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: all 0.35s;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  box-shadow: 0 4px 15px rgba(200, 149, 108, 0.1);
+  animation: letterFloat 3s ease-in-out infinite, letterGlow 2.5s ease-in-out infinite alternate;
+  isolation: isolate;
 }
+
+/* Luxury gold pulse keyframes */
+@keyframes letterGlow {
+  0% {
+    border-color: var(--accent);
+    box-shadow: 0 4px 12px rgba(200, 149, 108, 0.08);
+  }
+  100% {
+    border-color: var(--gold);
+    box-shadow: 0 6px 20px rgba(212, 169, 106, 0.25);
+  }
+}
+
+/* Subtle vertical float keyframes */
+@keyframes letterFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+/* Sleek sliding golden shimmer bar */
+.letter-btn::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -150%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(212,169,106,0.3) 50%, rgba(255,255,255,0) 100%);
+  transform: skewX(-25deg);
+  transition: none;
+  z-index: 1;
+}
+
+.letter-btn:hover::after {
+  animation: btnShimmer 1.2s ease-out;
+}
+
+@keyframes btnShimmer {
+  100% { left: 200%; }
+}
+
 .letter-btn:hover {
   background: var(--ink);
-  color: var(--bg);
+  color: var(--white);
   border-color: var(--ink);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 12px 30px rgba(28, 25, 23, 0.15);
+  animation-play-state: paused; /* Pause floating when hovering */
 }
 .letter-box {
   max-height: 0;
@@ -1411,7 +1460,6 @@ celebBtn.addEventListener('click', function() {
 ═══════════════════════════════════════════════ */
 const playlist = [
   { name: "Zara Sa (Inst.)", file: "zara-sa-instrumental.mp3" },
-  { name: "Ordinary", file: "ordinary.mp3" },
   { name: "Suzume", file: "suzume.mp3" }
 ];
 let currentTrackIndex = 0;
@@ -1549,45 +1597,47 @@ musicAudio.addEventListener('ended', () => {
   changeTrack(nextIdx);
 });
 
-// Autostart triggers: User clicks anywhere, scrolls, or touches screen
-function initiateAutostart() {
+// Autostart triggers: User clicks anywhere, taps, touches, or presses a key
+let autostartTriggered = false;
+
+// Pre-load default track details immediately
+musicAudio.volume = 0;
+musicAudio.src = playlist[currentTrackIndex].file;
+musicAudio.load();
+
+function tryAutoplay() {
   if (autostartTriggered) return;
-  autostartTriggered = true;
   
-  // Set starting volume to 0 before starting play
-  musicAudio.volume = 0;
-  musicAudio.src = playlist[currentTrackIndex].file;
-  musicAudio.load();
-  
-  playTrack();
-  cleanupAutostartListeners();
-}
-
-function cleanupAutostartListeners() {
-  document.removeEventListener('click', initiateAutostart);
-  document.removeEventListener('scroll', initiateAutostart);
-  document.removeEventListener('touchstart', initiateAutostart);
-}
-
-document.addEventListener('click', initiateAutostart);
-document.addEventListener('scroll', initiateAutostart);
-document.addEventListener('touchstart', initiateAutostart);
-
-// Attempt immediate autoplay on load (if browser rules permit)
-window.addEventListener('DOMContentLoaded', () => {
-  musicAudio.volume = 0;
-  musicAudio.src = playlist[currentTrackIndex].file;
-  musicAudio.load();
   musicAudio.play().then(() => {
     autostartTriggered = true;
     updateUI();
     fadeVolume(targetVolumeLevel, 800);
     cleanupAutostartListeners();
   }).catch(err => {
-    // Autoplay blocked, wait for scroll/click/touch interaction listeners
-    console.log("Immediate autoplay blocked by browser. Awaiting user interaction.");
+    // Normal browser restriction, wait for valid interaction gestures
+    console.log("Autoplay deferred. Awaiting user interaction (click/tap).");
   });
-});
+}
+
+function initiateAutostart() {
+  tryAutoplay();
+}
+
+function cleanupAutostartListeners() {
+  document.removeEventListener('click', initiateAutostart);
+  document.removeEventListener('mousedown', initiateAutostart);
+  document.removeEventListener('keydown', initiateAutostart);
+  document.removeEventListener('touchstart', initiateAutostart);
+}
+
+// Listen to genuine user interaction gestures (scroll is NOT a gesture, click/tap/keypress are)
+document.addEventListener('click', initiateAutostart);
+document.addEventListener('mousedown', initiateAutostart);
+document.addEventListener('keydown', initiateAutostart);
+document.addEventListener('touchstart', initiateAutostart);
+
+// Attempt immediate autoplay on load (if browser rules permit)
+tryAutoplay();
 
 // Initialize player UI
 updateUI();
